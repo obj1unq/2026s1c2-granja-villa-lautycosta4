@@ -15,12 +15,13 @@ class Maiz{
 	method crecer() { //regar
 	  estado = maizAdulto
 	}
+
+	method cosechar() {
+	  return estado.esCosechable() //solo se puede cosechar si el maiz esta en su estado adulto
+	}
 	method costo() {
 	  
-	}
-method cosechar() {
-	  
-	}
+	}	
 }
 //maiz crecimiento
 object maizBebe {
@@ -58,13 +59,16 @@ class Trigo {
 		}else {estado = 0} //si esta crecico, vuelve a su estado inicial 
 	
 	}
-
+	method esCosechable() {
+	return estado >= 2 //solo se puede cosechar si el trigo esta en su estado 2 o mas
+	}
+	method cosechar() {
+	  return self.esCosechable() //solo se puede cosechar si el trigo esta en su estado completamente crecido
+	}
 	method costo() {
 	  
 	}
-method cosechar() {
-	  
-	}
+
 }
 
 
@@ -77,8 +81,9 @@ class Tomaco {
 	method sembrar(){
 		game.addVisual(self)
 	}
+	
 	method cosechar() {
-	  
+	  return true //el tomaco siempre se puede cosechar
 	}
 	method crecer() { //regar
 	  if(not self.estaEnBordeArriba()){

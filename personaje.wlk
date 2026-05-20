@@ -15,7 +15,8 @@ object personaje {
 	 planta.sembrar() }
 	}
 	method objetosEnPosicion(){
-		return game.getObjectsIn(self.position()).filter{objeto => objeto != self} //objetos en posicion sin contar al personaje
+		return game.getObjectsIn(self.position())
+		.filter{objeto => objeto != self} //objetos en posicion sin contar al personaje
 	}
 	method lugarVacio() {		
 		return self.objetosEnPosicion().isEmpty()
@@ -28,9 +29,13 @@ object personaje {
 			}else{self.error("No hay planta para regar")}
 	}
 	
-	
+	const plantasCosechadas = []
 	method cosechar() {
-	  
+		const planta = self.objetosEnPosicion()
+	  		if(not planta.isEmpty()){		
+	  			planta.first().cosechar() //cosecha una sola planta en posicion
+				plantasCosechadas.add(planta.first()) //agrega la planta cosechada a la lista de cosechas
+			}else{self.error("No hay planta para cosechar")}
 	}
 	method vender() {
 	  

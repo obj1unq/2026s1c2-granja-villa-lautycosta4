@@ -23,6 +23,7 @@ program farmville {
 	keyboard.t().onPressDo({ personaje.sembrar(new Trigo(position=personaje.position())) })
 	keyboard.o().onPressDo({ personaje.sembrar(new Tomaco(position=personaje.position())) })
 	keyboard.r().onPressDo({ personaje.regar() })
+	keyboard.c().onPressDo({ personaje.cosechar() })
  	//  COMIENZA
 	game.start()
 }
