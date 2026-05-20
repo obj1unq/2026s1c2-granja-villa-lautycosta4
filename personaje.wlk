@@ -9,12 +9,26 @@ object personaje {
 		self.position() == nuevaPosition
 	}
 	method sembrar(planta) {
-   	  game.at(self.position().x(), self.position().y())
-	  game.addVisual(planta.image())
+	  if(not self.lugarVacio()){
+		game.say(self, "No puedo sembrar aquí, ya hay algo plantado")
+	  }else {		
+	 planta.sembrar() }
 	}
+	method objetosEnPosicion(){
+		return game.getObjectsIn(self.position()).filter{objeto => objeto != self} //objetos en posicion sin contar al personaje
+	}
+	method lugarVacio() {		
+		return self.objetosEnPosicion().isEmpty()
+	}
+	
 	method regar() {
-	  
+		const planta = self.objetosEnPosicion()
+	  		if(not planta.isEmpty()){		
+	  			planta.first().crecer() //riega una sola planta en posicion
+			}else{self.error("No hay planta para regar")}
 	}
+	
+	
 	method cosechar() {
 	  
 	}
@@ -22,9 +36,4 @@ object personaje {
 	  
 	}
 	
-	method acciones(){
-		keyboard.m().onPressDo({ self.sembrar(new Maiz(position=self.position())) })
-		keyboard.t().onPressDo({ self.sembrar(new Trigo(position=self.position())) })
-		keyboard.o().onPressDo({ self.sembrar(new Tomaco(position=self.position())) })
-	}
 }
