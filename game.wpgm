@@ -12,6 +12,7 @@ program farmville {
 
 	//  VISUALES
  	game.addVisualCharacter(personaje)
+	game.addVisual(barraMonedas)
 
 	//movimientos
 
@@ -24,9 +25,9 @@ program farmville {
 	keyboard.o().onPressDo({ personaje.sembrar(new Tomaco(position=personaje.position())) })
 	keyboard.r().onPressDo({ personaje.regar() })
 	keyboard.c().onPressDo({ personaje.cosechar() })
-	keyboard.space().onPressDo({personaje.plantaYDinero()})
-	
+	keyboard.space().onPressDo({personaje.plantaYDinero()})	
 	keyboard.v().onPressDo({ personaje.vender() })
+	
  	//  COMIENZA
 	game.start()
 }

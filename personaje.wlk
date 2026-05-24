@@ -52,8 +52,28 @@ object personaje {
 	method plantaYDinero(){
 		game.say(self, "Tengo " + plantasCosechadas.size() + " plantas cosechadas y $" + totalDineroVentas.sum())
 	}
+	
+	var property monedas= 0
 	method vender() {
-	  
+	  monedas = monedas + totalDineroVentas.sum()
+	  totalDineroVentas.clear() //reinicia el dinero acumulado por ventas
+	  plantasCosechadas.clear() //reinicia el inventario de plantas cosechadas
 	}
 	
+}
+
+
+//monedas
+object barraMonedas {
+
+    method position() = game.at(1,1)
+	method textColor() {return paleta.amarillo()}
+    method text() {
+        return "Monedas: " + personaje.monedas()	
+    }
+}
+object paleta {
+    const property verde = "00FF00FF"
+    const property amarillo = "FFFF00FF"
+    const property rojo = "FF0000FF"
 }
