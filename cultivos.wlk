@@ -15,13 +15,19 @@ class Maiz{
 	method crecer() { //regar
 	  estado = maizAdulto
 	}
-
-	method cosechar() {
-	  return estado.esCosechable() //solo se puede cosechar si el maiz esta en su estado adulto
+	method validarCosechar(){
+		if(not estado.esCosechable()){
+			self.error("No esta listo para cosechar")
+		}
 	}
-	method costo() {
-	  
-	}	
+	method cosechar() {
+	  self.validarCosechar() //solo se puede cosechar si el trigo esta en su estado completamente crecido
+		game.removeVisual(self) //remueve el trigo cosechado del juego
+	}
+	method costo(){
+		return 150
+	}
+
 }
 //maiz crecimiento
 object maizBebe {
@@ -62,11 +68,18 @@ class Trigo {
 	method esCosechable() {
 	return estado >= 2 //solo se puede cosechar si el trigo esta en su estado 2 o mas
 	}
-	method cosechar() {
-	  return self.esCosechable() //solo se puede cosechar si el trigo esta en su estado completamente crecido
+	method validarCosechar(){
+		if(not self.esCosechable()){
+			self.error("No esta listo para cosechar")
+		}
 	}
+	method cosechar() {
+	  self.validarCosechar() //solo se puede cosechar si el trigo esta en su estado completamente crecido
+		game.removeVisual(self) //remueve el trigo cosechado del juego
+	}
+
 	method costo() {
-	  
+	  return (estado-1) * 100 
 	}
 
 }
@@ -83,7 +96,7 @@ class Tomaco {
 	}
 	
 	method cosechar() {
-	  return true //el tomaco siempre se puede cosechar
+	  game.removeVisual(self) //el tomaco siempre se puede cosechar
 	}
 	method crecer() { //regar
 	  if(not self.estaEnBordeArriba()){
@@ -100,7 +113,7 @@ class Tomaco {
 		return self.position().y() == game.height()-1
 	} 
 	method costo() {
-	  
+	  return 80
 	}
 }
 
