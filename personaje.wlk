@@ -59,8 +59,40 @@ object personaje {
 	  totalDineroVentas.clear() //reinicia el dinero acumulado por ventas
 	  plantasCosechadas.clear() //reinicia el inventario de plantas cosechadas
 	}
+	method instalarAspersor(){
+		self.validarAspersor()
+		game.addVisual(aspersor)
+	}
+	method validarAspersor(){
+		if(not self.lugarVacio()){
+		self.error("No puedo instalar el aspersor aquí, ya hay algo plantado")
+	}
+	}
+}
+object aspersor{
+	var property position = personaje.position()
+	const property image = "aspersor.png"
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //monedas
