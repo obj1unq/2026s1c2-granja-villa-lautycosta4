@@ -28,6 +28,7 @@ program farmville {
 	keyboard.space().onPressDo({personaje.plantaYDinero()})	
 	keyboard.v().onPressDo({ personaje.vender() })
 	keyboard.a().onPressDo({personaje.instalarAspersor()})
+
  	//  COMIENZA
 	game.start()
 }

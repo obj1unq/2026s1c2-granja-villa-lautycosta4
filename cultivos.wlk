@@ -11,7 +11,7 @@ class Maiz{
 	method sembrar(){
 		game.addVisual(self)
 	}
-	
+	method esPlanta(){return true}	
 	method crecer() { //regar
 	  estado = maizAdulto
 	}
@@ -54,7 +54,7 @@ class Trigo {
 	method image(){
 		return "wheat_" + estado + ".png" //muestra imagen del trigo en su evolucion/estado actual
 	}
-
+	method esPlanta(){return true}
 	method sembrar(){
 		game.addVisual(self)
 	}
@@ -94,7 +94,7 @@ class Tomaco {
 	method sembrar(){
 		game.addVisual(self)
 	}
-	
+	method esPlanta(){return true}
 	method cosechar() {
 	  game.removeVisual(self) //el tomaco siempre se puede cosechar
 	}

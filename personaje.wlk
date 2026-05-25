@@ -3,7 +3,7 @@ import cultivos.*
 object personaje {
 	var property position = game.center()
 	const property image = "fplayer.png"
-
+	method esPlanta(){return false}
 	method mover(direccion) {
 		const nuevaPosition = direccion.siguiente(position)
 		self.position() == nuevaPosition
@@ -16,16 +16,16 @@ object personaje {
 	}
 	method objetosEnPosicion(){
 		return game.getObjectsIn(self.position())
-		.filter{objeto => objeto != self} //objetos en posicion sin contar al personaje
+		.filter{objeto => objeto.esPlanta()} //objetos en posicion sin contar al personaje
 	}
 	method lugarVacio() {		
 		return self.objetosEnPosicion().isEmpty()
 	}
 	
 	method regar() {
-		const planta = self.objetosEnPosicion()
-	  		if(not planta.isEmpty()){		
-	  			planta.first().crecer() //riega una sola planta en posicion
+		const plantas = self.objetosEnPosicion()
+	  		if(not plantas.isEmpty()){		
+	  			plantas.forEach { planta =>	planta.crecer() } //riega todas las plantas en posicion
 			}else{self.error("No hay planta para regar")}
 	}
 	
@@ -61,18 +61,45 @@ object personaje {
 	}
 	method instalarAspersor(){
 		self.validarAspersor()
+		const aspersor = new Aspersor(position = self.position()) 
 		game.addVisual(aspersor)
+		aspersor.activar()
 	}
+
 	method validarAspersor(){
 		if(not self.lugarVacio()){
 		self.error("No puedo instalar el aspersor aquí, ya hay algo plantado")
 	}
 	}
 }
-object aspersor{
-	var property position = personaje.position()
+class Aspersor{
+	var property position
 	const property image = "aspersor.png"
-	
+	method regar(){
+			self.posicionesAlrededor().forEach { posicion =>
+			self.regarPosicion(posicion)
+		}
+	}
+	method activar(){
+		game.onTick(1000, "regar cada 1s", {self.regar()})
+	}
+	method regarPosicion(posicion) { 
+		const plantas = game.getObjectsIn(posicion)
+			.filter { objeto => objeto.esPlanta() }
+
+		plantas.forEach { planta =>
+			planta.crecer()
+		}
+	}
+	method posicionesAlrededor() {
+		return [
+			game.at(position.x() + 1, position.y()),  //arriba
+			game.at(position.x() - 1, position.y()), //abajo
+			game.at(position.x() , position.y() + 1), //derecha
+			game.at(position.x() , position.y() - 1) //izquierda
+		]
+	}
+	method esPlanta(){return false}
 }
 
 
