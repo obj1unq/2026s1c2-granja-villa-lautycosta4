@@ -13,6 +13,9 @@ program farmville {
 	//  VISUALES
  	game.addVisualCharacter(personaje)
 	game.addVisual(barraMonedas)
+	game.addVisual(new Mercado(position=game.at(8,8), monedas=1000))
+    game.addVisual(new Mercado(position=game.at(8,2), monedas=500))
+	game.addVisual(new Mercado(position=game.at(2,8)))
 
 	//movimientos
 
